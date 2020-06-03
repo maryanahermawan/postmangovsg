@@ -76,6 +76,7 @@ jobs:
         - npm install && npm run build
         - zip -qr code.zip build package.json node_modules/
         - cd $TRAVIS_BUILD_DIR/serverless/postman-api-gateway-authorizer && zip -qr code.zip *
+        - - cd $TRAVIS_BUILD_DIR/serverless/telegram-handler && npm install && npm run build && zip -qr telegram-handler.zip build package.json node_modules
       deploy:
         - provider: lambda
           function_name: log-twilio-callback-staging
@@ -117,6 +118,18 @@ jobs:
           zip: "../postman-api-gateway-authorizer/code.zip"
           on:
             branch: $PRODUCTION_BRANCH
+        - provider: lambda
+          function_name: telegram-handler-dev
+          region: $AWS_DEFAULT_REGION
+          role: $DEV_TELEGRAM_HANDLER_ROLE
+          runtime: nodejs12.x
+          module_name: build/index
+          handler_name: handler
+          timeout: 30
+          publish: true
+          zip: "../telegram-handler/telegram-handler.zip"
+          on:
+            branch: $DEV_TELEGRAM_HANDLER_BRANCH
     - name: root
       install:
         - npm install --ignore-scripts
