@@ -76,7 +76,7 @@ jobs:
         - npm install && npm run build
         - zip -qr code.zip build package.json node_modules/
         - cd $TRAVIS_BUILD_DIR/serverless/postman-api-gateway-authorizer && zip -qr code.zip *
-        - - cd $TRAVIS_BUILD_DIR/serverless/telegram-handler && npm install && npm run build && zip -qr telegram-handler.zip build package.json node_modules
+        - cd $TRAVIS_BUILD_DIR/serverless/telegram-handler && npm install && npm run build && zip -qr telegram-handler.zip build package.json node_modules
       deploy:
         - provider: lambda
           function_name: log-twilio-callback-staging
