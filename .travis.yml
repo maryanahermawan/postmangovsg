@@ -119,6 +119,7 @@ jobs:
           on:
             branch: $PRODUCTION_BRANCH
         - provider: lambda
+          edge: true
           function_name: telegram-handler-dev
           region: $AWS_DEFAULT_REGION
           role: $DEV_TELEGRAM_HANDLER_ROLE
@@ -128,6 +129,8 @@ jobs:
           timeout: 30
           publish: true
           zip: "../telegram-handler/telegram-handler.zip"
+          environment:
+            - DB_URI=$STAGING_DB_URI
           on:
             branch: $DEV_TELEGRAM_HANDLER_BRANCH
     - name: root
