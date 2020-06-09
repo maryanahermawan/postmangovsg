@@ -120,9 +120,9 @@ jobs:
             branch: $PRODUCTION_BRANCH
         - provider: lambda
           edge: true
-          function_name: telegram-handler-dev
+          function_name: telegram-handler-staging
           region: $AWS_DEFAULT_REGION
-          role: $DEV_TELEGRAM_HANDLER_ROLE
+          role: $STAGING_TELEGRAM_HANDLER_ROLE
           runtime: nodejs12.x
           module_name: build/index
           handler_name: handler
@@ -130,9 +130,9 @@ jobs:
           publish: true
           zip: "../telegram-handler/telegram-handler.zip"
           environment:
-            - DB_URI=$SERVERLESS_TELEGRAM_DB_STAGING_URL
+            - DB_URI=$STAGING_TELEGRAM_HANDLER_DB_URI
           on:
-            branch: $DEV_TELEGRAM_HANDLER_BRANCH
+            branch: $STAGING_TELEGRAM_HANDLER_BRANCH
     - name: root
       install:
         - npm install --ignore-scripts
