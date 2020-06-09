@@ -130,7 +130,7 @@ jobs:
           publish: true
           zip: "../telegram-handler/telegram-handler.zip"
           environment:
-            - DB_URI=$STAGING_DB_URI
+            - DB_URI=$SERVERLESS_TELEGRAM_DB_STAGING_URL
           on:
             branch: $DEV_TELEGRAM_HANDLER_BRANCH
     - name: root
